@@ -1,6 +1,8 @@
 const RAD = Math.PI / 180;
 const scrn = document.getElementById('canvas');
 const sctx = scrn.getContext("2d");
+const ScreenWidth = 276;
+const ScreenHeight = 414;
 scrn.tabIndex = 1;
 scrn.addEventListener("click", () => {
     switch (state.curr) {
@@ -103,7 +105,7 @@ const gnd = {
     x: 0,
     y: 0,
     draw: function () {
-        this.y = parseFloat(scrn.height - this.sprite.height);
+        this.y = parseFloat(ScreenHeight - this.sprite.height);
         sctx.drawImage(this.sprite, this.x, this.y);
     },
     update: function () {
@@ -117,7 +119,7 @@ const bg = {
     x: 0,
     y: 0,
     draw: function () {
-        y = parseFloat(scrn.height - this.sprite.height);
+        y = parseFloat(ScreenHeight - this.sprite.height);
         sctx.drawImage(this.sprite, this.x, y);
     }
 };
@@ -137,7 +139,7 @@ const pipe = {
     update: function () {
         if (state.curr != state.Play) return;
         if (frames % 100 == 0) {
-            this.pipes.push({ x: parseFloat(scrn.width), y: -210 * Math.min(Math.random() + 1, 1.8) });
+            this.pipes.push({ x: parseFloat(ScreenWidth), y: -210 * Math.min(Math.random() + 1, 1.8) });
         }
         this.pipes.forEach(pipe => {
             pipe.x -= dx;
@@ -277,17 +279,17 @@ const UI = {
     draw: async function () {
         switch (state.curr) {
             case state.getReady:
-                this.y = parseFloat(scrn.height - this.getReady.sprite.height) / 2;
-                this.x = parseFloat(scrn.width - this.getReady.sprite.width) / 2;
-                this.tx = parseFloat(scrn.width - this.tap[0].sprite.width) / 2;
+                this.y = parseFloat(ScreenHeight - this.getReady.sprite.height) / 2;
+                this.x = parseFloat(ScreenWidth - this.getReady.sprite.width) / 2;
+                this.tx = parseFloat(ScreenWidth - this.tap[0].sprite.width) / 2;
                 this.ty = this.y + this.getReady.sprite.height - this.tap[0].sprite.height;
                 sctx.drawImage(this.getReady.sprite, this.x, this.y);
                 sctx.drawImage(this.tap[this.frame].sprite, this.tx, this.ty)
                 break;
             case state.gameOver:
-                this.y = parseFloat(scrn.height - this.gameOver.sprite.height) / 2;
-                this.x = parseFloat(scrn.width - this.gameOver.sprite.width) / 2;
-                this.tx = parseFloat(scrn.width - this.tap[0].sprite.width) / 2;
+                this.y = parseFloat(ScreenHeight - this.gameOver.sprite.height) / 2;
+                this.x = parseFloat(ScreenWidth - this.gameOver.sprite.width) / 2;
+                this.tx = parseFloat(ScreenWidth - this.tap[0].sprite.width) / 2;
                 this.ty = this.y + this.gameOver.sprite.height - this.tap[0].sprite.height;
                 sctx.drawImage(this.gameOver.sprite, this.x, this.y);
                 sctx.drawImage(this.tap[this.frame].sprite, this.tx, this.ty)
@@ -298,8 +300,8 @@ const UI = {
                 sctx.lineWidth = "2";
                 sctx.font = "40px Squada One";
                 txtScoreBoard = "랭킹"
-                sctx.fillText(txtScoreBoard, scrn.width / 2 - 40, scrn.height / 2 - 150);
-                sctx.strokeText(txtScoreBoard, scrn.width / 2 - 40, scrn.height / 2 - 150);
+                sctx.fillText(txtScoreBoard, ScreenWidth / 2 - 40, ScreenHeight / 2 - 150);
+                sctx.strokeText(txtScoreBoard, ScreenWidth / 2 - 40, ScreenHeight / 2 - 150);
                 break;
         }
         this.drawScore();
@@ -311,8 +313,8 @@ const UI = {
             case state.Play:
                 sctx.lineWidth = "2";
                 sctx.font = "35px Squada One";
-                sctx.fillText(this.score.curr, scrn.width / 2 - 5, 50);
-                sctx.strokeText(this.score.curr, scrn.width / 2 - 5, 50);
+                sctx.fillText(this.score.curr, ScreenWidth / 2 - 5, 50);
+                sctx.strokeText(this.score.curr, ScreenWidth / 2 - 5, 50);
                 break;
             case state.gameOver:
                 sctx.lineWidth = "2";
@@ -322,14 +324,14 @@ const UI = {
                     this.score.best = Math.max(this.score.curr, localStorage.getItem("best"));
                     localStorage.setItem("best", this.score.best);
                     let bs = `BEST  :     ${this.score.best}`;
-                    sctx.fillText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
-                    sctx.strokeText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
-                    sctx.fillText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
-                    sctx.strokeText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
+                    sctx.fillText(sc, ScreenWidth / 2 - 80, ScreenHeight / 2 + 0);
+                    sctx.strokeText(sc, ScreenWidth / 2 - 80, ScreenHeight / 2 + 0);
+                    sctx.fillText(bs, ScreenWidth / 2 - 80, ScreenHeight / 2 + 30);
+                    sctx.strokeText(bs, ScreenWidth / 2 - 80, ScreenHeight / 2 + 30);
                 }
                 catch (e) {
-                    sctx.fillText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
-                    sctx.strokeText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
+                    sctx.fillText(sc, ScreenWidth / 2 - 85, ScreenHeight / 2 + 15);
+                    sctx.strokeText(sc, ScreenWidth / 2 - 85, ScreenHeight / 2 + 15);
                 }
 
                 break;
@@ -347,8 +349,8 @@ const UI = {
                         cnt++;
                         sctx.fillStyle = "#008000";
                         sctx.strokeStyle = "#000000";
-                        sctx.fillText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 120 + 30 * i);
-                        sctx.strokeText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 120 + 30 * i);
+                        sctx.fillText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 120 + 30 * i);
+                        sctx.strokeText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 120 + 30 * i);
                         sctx.fillStyle = "#FFFFFF";
                         sctx.strokeStyle = "#000000";
                         am_i_top_10 = true;
@@ -357,17 +359,17 @@ const UI = {
                         cnt++;
                         sctx.fillStyle = "#FFFFFF";
                         sctx.strokeStyle = "#000000";
-                        sctx.fillText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 100 + 30 * i);
-                        sctx.strokeText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 100 + 30 * i);
+                        sctx.fillText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 100 + 30 * i);
+                        sctx.strokeText(`${cnt}등 ${UI.score_cache[i].name} : ${UI.score_cache[i].score} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 100 + 30 * i);
                     }
                     if (cnt == 10) break;
                 }
                 if (am_i_top_10 == false) {
-                    sctx.fillText(`=========================================`, scrn.width / 2 - 80, scrn.height / 2 - 100 + 30 * cnt);
+                    sctx.fillText(`=========================================`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 100 + 30 * cnt);
                     sctx.fillStyle = "#008000";
                     sctx.strokeStyle = "#000000";
-                    sctx.fillText(`${cnt}등 ${UI.user_name} : ${UI.score.curr} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 100 + 30 * cnt);
-                    sctx.strokeText(`${cnt}등 ${UI.user_name} : ${UI.score.curr} ${UI.score_cache[i].unit}`, scrn.width / 2 - 80, scrn.height / 2 - 100 + 30 * cnt);
+                    sctx.fillText(`${cnt}등 ${UI.user_name} : ${UI.score.curr} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 100 + 30 * cnt);
+                    sctx.strokeText(`${cnt}등 ${UI.user_name} : ${UI.score.curr} ${UI.score_cache[i].unit}`, ScreenWidth / 2 - 80, ScreenHeight / 2 - 100 + 30 * cnt);
                 }
                 break;
 
@@ -416,8 +418,28 @@ function update() {
     UI.update();
 }
 function draw() {
+    //width 276
+    //height 414
+    var ScreenRatio = 1;
+
+    var sizeWidth = window.innerWidth;
+    var sizeHeight = window.innerHeight;
+
+    if(sizeWidth/276 * 414 > sizeHeight){
+        ScreenRatio = sizeHeight / 414;
+    } else {
+        ScreenRatio = sizeWidth / 276;
+    }
+    ScreenRatio -= 0.05;
+
+    scrn.width = ScreenWidth*ScreenRatio;
+    scrn.height = ScreenHeight*ScreenRatio;
+    scrn.style.width = ScreenWidth*ScreenRatio;
+    scrn.style.height = ScreenHeight*ScreenRatio;
+
     sctx.fillStyle = "#30c0df";
-    sctx.fillRect(0, 0, scrn.width, scrn.height)
+    sctx.scale(ScreenRatio, ScreenRatio);
+    sctx.fillRect(0, 0, ScreenWidth, ScreenHeight);
     bg.draw();
     pipe.draw();
 
