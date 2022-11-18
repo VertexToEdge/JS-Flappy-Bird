@@ -449,7 +449,7 @@ function draw() {
 }
 
 async function set_score(score) {
-    let response = fetch("http://localhost:8800/set_score", {
+    let response = fetch("https://culture.argos.or.kr/set_score", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -468,7 +468,7 @@ async function set_score(score) {
 async function get_score(score) {
     let user_name = prompt('이름을 입력하세요', '이름');
 
-    let response = fetch("http://localhost:8800/get_score", {
+    let response = fetch("https://culture.argos.or.kr/get_score", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
