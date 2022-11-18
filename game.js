@@ -18,7 +18,6 @@ scrn.addEventListener("click", () => {
             bird.speed = 0;
             bird.y = 100;
             pipe.pipes = [];
-            UI.score.curr = 0;
             SFX.played = false;
 
             UI.score_cache = [];
@@ -34,6 +33,7 @@ scrn.addEventListener("click", () => {
                 });
 
             }
+            UI.score.curr = 0;
             break;
         case state.ScoreBoard:
             state.curr = state.getReady;
@@ -57,7 +57,7 @@ scrn.onkeydown = function keyDown(e) {
                 bird.speed = 0;
                 bird.y = 100;
                 pipe.pipes = [];
-                UI.score.curr = 0;
+
                 SFX.played = false;
 
                 UI.score_cache = [];
@@ -73,6 +73,7 @@ scrn.onkeydown = function keyDown(e) {
                     });
 
                 }
+                UI.score.curr = 0;
                 break;
             case state.ScoreBoard:
                 state.curr = state.getReady;
