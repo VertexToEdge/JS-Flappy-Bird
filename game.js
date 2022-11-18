@@ -457,8 +457,7 @@ async function set_score(score) {
         body: JSON.stringify({
             name: UI.user_name,
             score: score,
-            unit: "초",
-            gameId: 1,
+            gameId: 7,
         }),
     });
     result = await response.json();
@@ -474,7 +473,7 @@ async function get_score(score) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            gameId: 1,
+            gameId: 7,
         }),
     });
     result = await response.json();
